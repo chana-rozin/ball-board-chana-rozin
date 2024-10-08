@@ -9,10 +9,13 @@ var BALL_IMG = '<img src="img/ball.png" />';
 var gBoard;
 var gGamerPos;
 let gScore;
+let ballsCount;
+
 function initGame() {
 	gGamerPos = { i: 2, j: 9 };
 	gBoard = buildBoard();
 	gScore = 0;
+	ballsCount = 2;
 	renderBoard(gBoard);
 }
 
@@ -121,8 +124,6 @@ function moveTo(i, j) {
 		// DOM:
 		renderCell(gGamerPos, GAMER_IMG);
 
-		const scoreElement = document.getElementsByClassName('score');
-
 		renderScore(gScore);
 
 	} // else console.log('TOO FAR', iAbsDiff, jAbsDiff);
@@ -163,6 +164,20 @@ function handleKey(event) {
 
 	}
 
+	// Check if the game is over
+	if(isGameOver())
+		win();
+
+}
+
+// Check if the game is over (all balls are collected)
+function isGameOver() {
+    return ballsCount === 0;
+}
+
+// Show a victory message
+function win() {
+	alert(`Congratulations! You won!\ncurrent score: ${gScore} points`);
 }
 
 // Returns the class name for a specific cell
