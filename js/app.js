@@ -10,6 +10,7 @@ var gBoard;
 var gGamerPos;
 let gScore;
 let ballsCount;
+let ballsInterval;
 
 function initGame() {
 	gGamerPos = { i: 2, j: 9 };
@@ -17,6 +18,34 @@ function initGame() {
 	gScore = 0;
 	ballsCount = 2;
 	renderBoard(gBoard);
+	ballsInterval = setInterval(addNewBall, 2000);
+}
+
+function addNewBall() {
+	console.log('addNewBall');
+	const newPos = getRandomEmptyLocation();
+	gBoard[newPos.i][newPos.j].gameElement = BALL;
+	ballsCount++;
+	renderCell(newPos, BALL_IMG);
+}
+
+function getRandomEmptyLocation() {
+	console.log('getRandomEmptyLocation');
+	console.log((gBoard.length-2 )* (gBoard[0].length-2));
+	if (ballsCount + 1 === (gBoard.length-2) * (gBoard[0].length-2)){
+		console.log('All cells are full, can\'t add more balls');
+		return null;
+	}
+	let location;
+	do {
+		location = { i: getRandomInt(1, gBoard.length - 2), j: getRandomInt(1, gBoard[0].length - 2) };
+	} while (gBoard[location.i][location.j].gameElement !== null);
+	return location;
+}
+
+function getRandomInt(min, max) {
+	console.log('getRandomInt');
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
