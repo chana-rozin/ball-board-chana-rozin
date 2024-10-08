@@ -108,6 +108,9 @@ function moveTo(i, j) {
 		if (targetCell.gameElement === BALL) {
 			console.log('Collecting!');
 			gScore++;
+			renderScore(gScore);
+
+			ballsCount--;
 		}
 
 		// MOVING from current position
@@ -123,8 +126,6 @@ function moveTo(i, j) {
 		gBoard[gGamerPos.i][gGamerPos.j].gameElement = GAMER;
 		// DOM:
 		renderCell(gGamerPos, GAMER_IMG);
-
-		renderScore(gScore);
 
 	} // else console.log('TOO FAR', iAbsDiff, jAbsDiff);
 
@@ -164,15 +165,14 @@ function handleKey(event) {
 
 	}
 
-	// Check if the game is over
-	if(isGameOver())
+	if (isGameOver())
 		win();
 
 }
 
 // Check if the game is over (all balls are collected)
 function isGameOver() {
-    return ballsCount === 0;
+	return ballsCount === 0;
 }
 
 // Show a victory message
