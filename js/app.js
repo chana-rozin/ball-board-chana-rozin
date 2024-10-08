@@ -8,9 +8,11 @@ var BALL_IMG = '<img src="img/ball.png" />';
 
 var gBoard;
 var gGamerPos;
+let gScore;
 function initGame() {
 	gGamerPos = { i: 2, j: 9 };
 	gBoard = buildBoard();
+	gScore = 0;
 	renderBoard(gBoard);
 }
 
@@ -84,6 +86,7 @@ function renderBoard(board) {
 	console.log(strHTML);
 	var elBoard = document.querySelector('.board');
 	elBoard.innerHTML = strHTML;
+
 }
 
 // Move the player to a specific location
@@ -101,6 +104,7 @@ function moveTo(i, j) {
 
 		if (targetCell.gameElement === BALL) {
 			console.log('Collecting!');
+			gScore++;
 		}
 
 		// MOVING from current position
@@ -117,6 +121,10 @@ function moveTo(i, j) {
 		// DOM:
 		renderCell(gGamerPos, GAMER_IMG);
 
+		const scoreElement = document.getElementsByClassName('score');
+
+		renderScore(gScore);
+
 	} // else console.log('TOO FAR', iAbsDiff, jAbsDiff);
 
 }
@@ -126,6 +134,10 @@ function renderCell(location, value) {
 	var cellSelector = '.' + getClassName(location)
 	var elCell = document.querySelector(cellSelector);
 	elCell.innerHTML = value;
+}
+
+function renderScore(value) {
+	document.getElementsByClassName('score')[0].innerHTML = value;;
 }
 
 // Move the player by keyboard arrows
