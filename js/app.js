@@ -195,7 +195,10 @@ function handleKey(event) {
 	}
 
 	if (isGameOver())
-		win();
+	{
+		clearInterval(ballsInterval);
+		setTimeout(win, 100);
+	}
 
 }
 
@@ -207,6 +210,10 @@ function isGameOver() {
 // Show a victory message
 function win() {
 	alert(`Congratulations! You won!\ncurrent score: ${gScore} points`);
+}
+
+function resetGame() {
+	initGame();
 }
 
 // Returns the class name for a specific cell
